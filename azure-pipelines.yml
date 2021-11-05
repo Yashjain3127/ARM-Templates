@@ -1,15 +1,24 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-trigger:
-- "*"
-
-stages:
-  - stage: test
+name: $(BuildDefinitionName)_$(date:yyyyMMdd)$(rev:.r)
+ 
+trigger: none
+ 
+pr: none
+ 
+stages :        
+  - stage: arm_template_deploy
     jobs:
-      - job: 'validateandtest'
-        pool:
-          vmimage: windows-latest
+      - job: arm_template_deploy
         steps:
+              - checkout: self
+ 
+              - task: AzureResourceManagerTemplateDeployment@3
+                inputs:
+                  deploymentScope: 'Resource Group'
+                  azureResourceManagerConnection: 'DevOps-ServiceConnection'
+                  subscriptionId: '6736e259-c1d5-401d-beee-19d2e1f05adc'
+                  action: 'Create Or Update Resource Group'
+                  resourceGroupName: 'KPMG-Demo'
+                  location: 'westeurope'
+                  templateLocation: 'Linked artifact'
+                  csmFile: '$(System.DefaultWorkingDirectory)/yashjain3127/Arm-Templates/Storage.json'
+                  deploymentMode: 'Incremental'
