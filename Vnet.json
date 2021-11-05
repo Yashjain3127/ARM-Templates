@@ -1,0 +1,82 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+            "name": "VNET-A",
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2020-11-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "displayName": "VNET-A"
+            },
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/24"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "Subnet-A1",
+                        "properties": {
+                            "addressPrefix": "10.0.0.0/27"
+                        }
+                    },
+                    {
+                        "name": "Subnet-A2",
+                        "properties": {
+                            "addressPrefix": "10.0.0.32/27"
+                        }
+                    },
+                    {
+                        "name": "Subnet-A3",
+                        "properties": {
+                            "addressPrefix": "10.0.0.64/27"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "VNET-B",
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2020-11-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "displayName": "VNET-B"
+            },
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "11.0.0.0/24"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "Subnet-B1",
+                        "properties": {
+                            "addressPrefix": "11.0.0.0/27"
+                        }
+                    },
+                    {
+                        "name": "Subnet-B2",
+                        "properties": {
+                            "addressPrefix": "11.0.0.32/27"
+                        }
+                    },
+                    {
+                        "name": "Subnet-B3",
+                        "properties": {
+                            "addressPrefix": "11.0.0.64/27"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "outputs": {}
+}
